@@ -81,20 +81,50 @@ public class Array<Element> implements Iterable<Element> {
 
     /**
      * 移除指定位置的元素
+     *
      * @param index 要移除的元素的索引
+     * @return 移除的元素
      * @throws ArrayIndexOutOfBoundsException 如果索引越界（index < 0 || index >= size()）
      */
-    public void remove(int index) {
+    public Element remove(int index) {
         checkIndex(index);
+
 
         for (int i = index + 1; i < size; i++) {
             elements[i - 1] = elements[i];
         }
         size--;
+        Element oldValue = (Element) elements[size];
         elements[size] = null;
         if (size > 0 && size < elements.length / 4) {
             resize(elements.length / 2);
         }
+        return oldValue;
+    }
+
+    /**
+     * 移除指定的元素
+     *
+     * @param e 待移除的元素
+     * @return 如果成功移除，则返回true，否则，返回false
+     */
+    public boolean remove(Element e) {
+        int index = -1;
+        for (int i = 0; i < size; i++) {
+            if (e == null) {
+                if (elements[i] == null) {
+                    index = i;
+                    break;
+                }
+            } else if (e.equals(elements[i])) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            remove(index);
+        }
+        return true;
     }
 
     private void checkIndex(int index) {
@@ -126,7 +156,17 @@ public class Array<Element> implements Iterable<Element> {
     }
 
     /**
+     * 数组是否为空
+     *
+     * @return 如果为空，返回true，否则，返回false
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
      * 是否包含指定的元素
+     *
      * @param e 待测试的元素
      * @return 如果包含该元素，返回true，否则，返回false
      */
