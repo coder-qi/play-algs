@@ -87,19 +87,18 @@ public class Array<Element> implements Iterable<Element> {
     public void remove(int index) {
         checkIndex(index);
 
-        Object[] newElements = new Object[elements.length - 1];
-        for (int i = 0; i < index; i++) {
-            newElements[i] = elements[i];
-        }
         for (int i = index + 1; i < size; i++) {
-            newElements[i - 1] = elements[i];
+            elements[i - 1] = elements[i];
         }
-        elements = newElements;
         size--;
+        elements[size] = null;
+        if (size > 0 && size < elements.length / 4) {
+            resize(elements.length / 2);
+        }
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index >= size()) {
+        if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException("Index out of bounds: " + index);
         }
     }
