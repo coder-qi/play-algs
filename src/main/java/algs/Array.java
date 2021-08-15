@@ -1,6 +1,7 @@
 package algs;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 数组类型的集合
@@ -199,6 +200,9 @@ public class Array<Element> implements Iterable<Element> {
 
             @Override
             public Element next() {
+                if (cursor >= size) {
+                    throw new NoSuchElementException();
+                }
                 return (Element) elements[cursor++];
             }
 
