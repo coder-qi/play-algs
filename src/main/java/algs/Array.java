@@ -130,7 +130,7 @@ public class Array<Element> implements Iterable<Element> {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
-            throw new ArrayIndexOutOfBoundsException("Index out of bounds: " + index);
+            throw new ArrayIndexOutOfBoundsException("index: " + index + ", size: " + size);
         }
     }
 
