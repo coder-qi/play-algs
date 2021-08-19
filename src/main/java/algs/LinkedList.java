@@ -110,7 +110,7 @@ public class LinkedList<Element> implements Iterable<Element> {
                 }
             }
         }
-        return true;
+        return false;
     }
 
     private void unlink(Node<Element> x) {
